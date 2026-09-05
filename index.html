@@ -10,7 +10,7 @@
   <title>ManualTec — Website Development</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link
     href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
     rel="stylesheet"
@@ -104,6 +104,15 @@
         <span>
           <strong>Portfolio</strong>
           <small>Explore selected directions</small>
+        </span>
+        <span class="nav-arrow">↗</span>
+      </button>
+
+      <button class="palette-link" data-target="preview" type="button">
+        <span class="nav-icon">⛶</span>
+        <span>
+          <strong>Live Preview</strong>
+          <small>Test interactive website window</small>
         </span>
         <span class="nav-arrow">↗</span>
       </button>
@@ -254,6 +263,60 @@
       </div>
     </section>
 
+    <!-- Interactive Live Sandbox Showcase -->
+    <section class="preview-showcase-section section" id="preview" aria-labelledby="preview-heading">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">Interactive Sandbox</span>
+          <h2 id="preview-heading">Experience it <em>live.</em></h2>
+        </div>
+
+        <p>
+          Interact with our live builds right in the browser window or expand to fullscreen for a complete preview experience.
+        </p>
+      </div>
+
+      <div class="live-preview-window" id="previewContainer">
+        <header class="preview-toolbar">
+          <div class="toolbar-meta">
+            <span class="toolbar-pill">Live Demo</span>
+            <span class="preview-site-title" id="previewSiteTitle">Atelier Architecture &amp; Design</span>
+          </div>
+
+          <div class="toolbar-actions">
+            <button
+              id="openNewTabBtn"
+              class="toolbar-btn secondary"
+              type="button"
+              aria-label="Open preview in new tab"
+            >
+              Open Tab <span aria-hidden="true">↗</span>
+            </button>
+
+            <button
+              id="fullscreenBtn"
+              class="toolbar-btn primary"
+              type="button"
+              aria-label="Toggle full screen mode"
+            >
+              Full Screen <span class="btn-icon" aria-hidden="true">⛶</span>
+            </button>
+          </div>
+        </header>
+
+        <div class="preview-viewport-wrapper">
+          <iframe
+            id="livePreviewIframe"
+            src="https://example.com"
+            title="Interactive Website Preview"
+            loading="lazy"
+            allow="fullscreen; autoplay; encrypted-media"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
     <section class="catalog-section section" id="catalog" aria-labelledby="catalog-title">
       <div class="section-heading">
         <div>
@@ -269,7 +332,7 @@
       </div>
 
       <div class="template-row">
-        <article class="template-card">
+        <article class="template-card" data-url="https://example.com" data-title="01 / Atelier — Editorial">
           <div class="template-preview preview-one">
             <span class="preview-label">01 / Atelier</span>
             <span class="preview-title">Expose<br /><em>your brand.</em></span>
@@ -280,7 +343,7 @@
           </div>
         </article>
 
-        <article class="template-card">
+        <article class="template-card" data-url="https://example.com" data-title="02 / Forma — Architecture">
           <div class="template-preview preview-two">
             <span class="preview-label">02 / Forma</span>
             <span class="preview-title">Promote<br /><em>your product.</em></span>
@@ -291,7 +354,7 @@
           </div>
         </article>
 
-        <article class="template-card">
+        <article class="template-card" data-url="https://example.com" data-title="03 / Folio — Personal">
           <div class="template-preview preview-three">
             <span class="preview-label">03 / Folio</span>
             <span class="preview-title">Make it<br /><em>personal.</em></span>
