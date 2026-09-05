@@ -5,6 +5,14 @@ const closePaletteButton = document.getElementById("closePalette");
 const paletteSearch = document.getElementById("paletteSearch");
 const paletteLinks = [...document.querySelectorAll(".palette-link")];
 
+// Live Preview DOM Elements
+const previewContainer = document.getElementById("previewContainer");
+const livePreviewIframe = document.getElementById("livePreviewIframe");
+const previewSiteTitle = document.getElementById("previewSiteTitle");
+const fullscreenBtn = document.getElementById("fullscreenBtn");
+const openNewTabBtn = document.getElementById("openNewTabBtn");
+const templateCards = document.querySelectorAll(".template-card[data-url]");
+
 function openPalette() {
   paletteBackdrop.hidden = false;
   commandPalette.setAttribute("aria-hidden", "false");
@@ -143,5 +151,70 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       behavior: "smooth",
       block: "start"
     });
+  });
+});
+
+/* ==========================================================================
+   Interactive Live Preview / Sandbox Functionality
+   ========================================================================== */
+
+// 1. Toggle Native Fullscreen
+if (fullscreenBtn && previewContainer) {
+  fullscreenBtn.addEventListener("click", () => {
+    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+      if (previewContainer.requestFullscreen) {
+        previewContainer.requestFullscreen();
+      } else if (previewContainer.webkitRequestFullscreen) {
+        previewContainer.webkitRequestFullscreen();
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  });
+
+  const handleFullscreenChange = () => {
+    const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
+    fullscreenBtn.innerHTML = isFullscreen
+      ? `Exit Full Screen <span class="btn-icon" aria-hidden="true">✕</span>`
+      : `Full Screen <span class="btn-icon" aria-hidden="true">⛶</span>`;
+  };
+
+  document.addEventListener("fullscreenchange", handleFullscreenChange);
+  document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+}
+
+// 2. Open Current Preview URL in a New Browser Tab
+if (openNewTabBtn && livePreviewIframe) {
+  openNewTabBtn.addEventListener("click", () => {
+    const targetUrl = livePreviewIframe.getAttribute("src");
+    if (targetUrl) {
+      window.open(targetUrl, "_blank", "noopener,noreferrer");
+    }
+  });
+}
+
+// 3. Connect Template Cards to Load Dynamically inside the Live Preview Window
+templateCards.forEach((card) => {
+  card.addEventListener("click", () => {
+    const targetUrl = card.dataset.url;
+    const templateTitle = card.dataset.title;
+
+    if (targetUrl && livePreviewIframe) {
+      livePreviewIframe.src = targetUrl;
+    }
+
+    if (templateTitle && previewSiteTitle) {
+      previewSiteTitle.textContent = templateTitle;
+    }
+
+    // Smooth scroll user to the live preview window
+    const previewSection = document.getElementById("preview");
+    if (previewSection) {
+      previewSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   });
 });
