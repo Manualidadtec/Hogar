@@ -5,12 +5,20 @@ const closePaletteButton = document.getElementById("closePalette");
 const paletteSearch = document.getElementById("paletteSearch");
 const paletteLinks = [...document.querySelectorAll(".palette-link")];
 
-// Live Preview DOM Elements
+// Live Preview DOM Elements (Instance 1: Creation)
 const previewContainer = document.getElementById("previewContainer");
 const livePreviewIframe = document.getElementById("livePreviewIframe");
 const previewSiteTitle = document.getElementById("previewSiteTitle");
 const fullscreenBtn = document.getElementById("fullscreenBtn");
 const openNewTabBtn = document.getElementById("openNewTabBtn");
+
+// Live Preview DOM Elements (Instance 2: Ejemplo)
+const previewContainerEjemplo = document.getElementById("previewContainerEjemplo");
+const livePreviewIframeEjemplo = document.getElementById("livePreviewIframeEjemplo");
+const previewSiteTitleEjemplo = document.getElementById("previewSiteTitleEjemplo");
+const fullscreenBtnEjemplo = document.getElementById("fullscreenBtnEjemplo");
+const openNewTabBtnEjemplo = document.getElementById("openNewTabBtnEjemplo");
+
 const templateCards = document.querySelectorAll(".template-card[data-url]");
 
 function openPalette() {
@@ -158,50 +166,88 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
    Interactive Live Preview / Sandbox Functionality
    ========================================================================== */
 
-// 1. Toggle Native Fullscreen
-if (fullscreenBtn && previewContainer) {
-  fullscreenBtn.addEventListener("click", () => {
-    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-      if (previewContainer.requestFullscreen) {
-        previewContainer.requestFullscreen();
-      } else if (previewContainer.webkitRequestFullscreen) {
-        previewContainer.webkitRequestFullscreen();
-      }
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-      }
-    }
-  });
+/**
+ * Generic helper to initialize an interactive live-preview sandbox window
+ */
+function initLivePreviewWindow({ container, iframe, fullscreenButton, openTabButton, defaultUrl }) {
+  if (!container || !iframe) return;
 
-  const handleFullscreenChange = () => {
-    const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
-    fullscreenBtn.innerHTML = isFullscreen
-      ? `Exit Full Screen <span class="btn-icon" aria-hidden="true">✕</span>`
-      : `Full Screen <span class="btn-icon" aria-hidden="true">⛶</span>`;
-  };
+  // 1. Toggle Native Fullscreen
+  if (fullscreenButton) {
+    fullscreenButton.addEventListener("click", () => {
+      const isFullscreen = document.fullscreenElement === container || document.webkitFullscreenElement === container;
 
-  document.addEventListener("fullscreenchange", handleFullscreenChange);
-  document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+      if (!isFullscreen) {
+        if (container.requestFullscreen) {
+          container.requestFullscreen();
+        } else if (container.webkitRequestFullscreen) {
+          container.webkitRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        }
+      }
+    });
+
+    const handleFullscreenChange = () => {
+      const isCurrentFullscreen = document.fullscreenElement === container || document.webkitFullscreenElement === container;
+      fullscreenButton.innerHTML = isCurrentFullscreen
+        ? `Exit Full Screen <span class="btn-icon" aria-hidden="true">✕</span>`
+        : `Full Screen <span class="btn-icon" aria-hidden="true">⛶</span>`;
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+  }
+
+  // 2. Open Current Preview URL in a New Tab
+  if (openTabButton) {
+    openTabButton.addEventListener("click", () => {
+      const targetUrl = iframe.getAttribute("src") || defaultUrl;
+      if (targetUrl) {
+        window.open(targetUrl, "_blank", "noopener,noreferrer");
+      }
+    });
+  }
 }
 
-// 2. Open Current Preview URL in a New Browser Tab
-if (openNewTabBtn && livePreviewIframe) {
-  openNewTabBtn.addEventListener("click", () => {
-    const targetUrl = livePreviewIframe.getAttribute("src");
-    if (targetUrl) {
-      window.open(targetUrl, "_blank", "noopener,noreferrer");
-    }
-  });
-}
+// Initialize Instance 1 (creation.terrible-360.workers.dev)
+initLivePreviewWindow({
+  container: previewContainer,
+  iframe: livePreviewIframe,
+  fullscreenButton: fullscreenBtn,
+  openTabButton: openNewTabBtn,
+  defaultUrl: "https://creation.terrible-360.workers.dev"
+});
 
-// 3. Connect Template Cards to Load Dynamically inside the Live Preview Window
+// Initialize Instance 2 (ejemplo.terrible-360.workers.dev)
+initLivePreviewWindow({
+  container: previewContainerEjemplo,
+  iframe: livePreviewIframeEjemplo,
+  fullscreenButton: fullscreenBtnEjemplo,
+  openTabButton: openNewTabBtnEjemplo,
+  defaultUrl: "https://ejemplo.terrible-360.workers.dev/"
+});
+
+// 3. Connect Template Cards to Load Dynamically inside the Primary Preview Window
 templateCards.forEach((card) => {
   card.addEventListener("click", () => {
     const targetUrl = card.dataset.url;
     const templateTitle = card.dataset.title;
+
+    if (targetUrl.includes("ejemplo") && livePreviewIframeEjemplo) {
+      livePreviewIframeEjemplo.src = targetUrl;
+      if (previewSiteTitleEjemplo) previewSiteTitleEjemplo.textContent = templateTitle;
+
+      const previewSectionEjemplo = document.getElementById("preview-ejemplo");
+      if (previewSectionEjemplo) {
+        previewSectionEjemplo.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      return;
+    }
 
     if (targetUrl && livePreviewIframe) {
       livePreviewIframe.src = targetUrl;
@@ -211,7 +257,6 @@ templateCards.forEach((card) => {
       previewSiteTitle.textContent = templateTitle;
     }
 
-    // Smooth scroll user to the live preview window
     const previewSection = document.getElementById("preview");
     if (previewSection) {
       previewSection.scrollIntoView({ behavior: "smooth", block: "start" });
