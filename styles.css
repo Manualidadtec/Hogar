@@ -633,8 +633,14 @@ kbd {
    ========================================================================== */
 .preview-showcase-section {
   padding-top: 90px;
-  padding-bottom: 110px;
+  padding-bottom: 90px;
   background: var(--linen);
+}
+
+.preview-alt-section {
+  background: var(--linen-dark);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 
 .live-preview-window {
