@@ -3,39 +3,596 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta
-    name="description"
-    content="ManualTec creates refined website templates and visual development experiences."
-  />
+  <meta name="description" content="ManualTec creates refined website templates and visual development experiences." />
   <title>ManualTec — Website Development</title>
 
+  <!-- Google Fonts: Instrument Serif & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      --bg: #f8f6f0;
+      --bg-alt: #f1ede3;
+      --paper: #ffffff;
+      --ink: #191816;
+      --slate: #5f5c56;
+      --slate-light: #8e8a82;
+      --border: #dfdbd0;
+      --border-dark: #272420;
+      --accent: #2e6930;
+      --accent-soft: #edf5eb;
+      --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-serif: 'Instrument Serif', Georgia, serif;
+      --shadow-sm: 0 10px 30px rgba(25, 24, 22, 0.06);
+      --shadow-lg: 0 25px 80px rgba(25, 24, 22, 0.12);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .container {
+      width: min(1200px, calc(100% - 48px));
+      margin-inline: auto;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 999;
+      padding: 10px 14px;
+      color: var(--paper);
+      background: var(--ink);
+      border-radius: 8px;
+      transform: translateY(-150%);
+      transition: transform 0.2s ease;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    /* Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 84px;
+      padding-inline: max(24px, calc((100% - 1200px) / 2));
+      background: rgba(248, 246, 240, 0.94);
+      border-bottom: 1px solid rgba(223, 219, 208, 0.7);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+    }
+
+    .brand-caption {
+      color: var(--slate);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .command-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 6px 8px 6px 14px;
+      color: var(--ink);
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      box-shadow: 0 4px 14px rgba(25, 24, 22, 0.04);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .command-trigger:hover {
+      transform: translateY(-1px);
+      border-color: var(--slate-light);
+    }
+
+    .trigger-identity {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .identity-avatar {
+      display: grid;
+      width: 26px;
+      height: 26px;
+      place-items: center;
+      color: var(--paper);
+      background: var(--ink);
+      border-radius: 50%;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .trigger-identity strong {
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .trigger-identity small {
+      color: var(--slate);
+      font-size: 0.7rem;
+    }
+
+    .trigger-key {
+      padding: 2px 7px;
+      color: var(--slate);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.68rem;
+      font-weight: 600;
+    }
+
+    /* Section Styling */
+    .section {
+      padding: 90px 0;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--slate);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+      font-weight: 400;
+    }
+
+    h1 em, h2 em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      letter-spacing: -0.02em;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 60px;
+      padding-top: 60px;
+      padding-bottom: 90px;
+    }
+
+    .hero-title {
+      font-size: clamp(3.2rem, 5.5vw, 5.2rem);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      margin-bottom: 20px;
+    }
+
+    .hero-description {
+      max-width: 480px;
+      margin-bottom: 30px;
+      color: var(--slate);
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border-bottom: 1.5px solid var(--ink);
+      padding-bottom: 3px;
+    }
+
+    .hero-image {
+      position: relative;
+      height: 480px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Category Grid */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .category-card {
+      position: relative;
+      height: 380px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .category-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .category-card:hover img {
+      transform: scale(1.04);
+    }
+
+    .category-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(25, 24, 22, 0.05) 30%, rgba(25, 24, 22, 0.75) 100%);
+    }
+
+    .category-content {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 24px;
+      color: var(--paper);
+    }
+
+    .category-content strong {
+      display: block;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .category-content small {
+      color: #dfdbd0;
+      font-size: 0.8rem;
+    }
+
+    /* Sandbox Container & Toolbar */
+    .preview-showcase-section {
+      padding: 70px 0 90px;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-heading {
+      margin-bottom: 36px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    .section-heading p {
+      max-width: 650px;
+      color: var(--slate);
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .live-preview-window {
+      position: relative;
+      background: #191816;
+      border: 1px solid #272420;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .preview-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 48px;
+      padding: 0 16px;
+      background: #191816;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      color: #f8f6f0;
+    }
+
+    .toolbar-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .toolbar-pill {
+      padding: 3px 8px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #99f6e4;
+    }
+
+    .preview-site-title {
+      font-family: monospace;
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toolbar-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.08);
+      color: #f8f6f0;
+      transition: background 0.2s ease;
+    }
+
+    .toolbar-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .toolbar-btn.primary {
+      background: rgba(46, 105, 48, 0.85);
+      border-color: rgba(46, 105, 48, 0.9);
+      color: #fff;
+    }
+
+    .toolbar-btn.primary:hover {
+      background: rgba(46, 105, 48, 1);
+    }
+
+    .preview-viewport-wrapper {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      background: #ffffff;
+    }
+
+    .preview-viewport-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      background: #ffffff;
+    }
+
+    /* Template Catalog */
+    .template-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 36px;
+    }
+
+    .template-card {
+      padding: 24px;
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .template-preview {
+      height: 180px;
+      border-radius: 10px;
+      background: var(--bg-alt);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+    }
+
+    .template-preview em {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+    }
+
+    .template-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+    }
+
+    /* Contact */
+    .contact-section {
+      padding: 80px 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .email-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+      padding: 12px 24px;
+      background: var(--ink);
+      color: var(--paper);
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* Footer */
+    .site-footer {
+      display: flex;
+      justify-content: space-between;
+      padding: 30px 24px;
+      border-top: 1px solid var(--border);
+      color: var(--slate);
+      font-size: 0.78rem;
+    }
+
+    /* Palette Modal / Backdrop */
+    .palette-backdrop[hidden], .command-palette[aria-hidden="true"] {
+      display: none;
+    }
+
+    .palette-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      background: rgba(25, 24, 22, 0.45);
+      backdrop-filter: blur(4px);
+    }
+
+    .command-palette {
+      position: fixed;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      width: min(100% - 32px, 560px);
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      padding: 24px;
+    }
+
+    .palette-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .palette-search input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--bg);
+      outline: 0;
+      margin-bottom: 16px;
+    }
+
+    .palette-navigation {
+      display: grid;
+      gap: 6px;
+    }
+
+    .palette-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      background: var(--bg);
+      border: 1px solid transparent;
+      border-radius: 10px;
+      text-align: left;
+    }
+
+    .palette-link:hover {
+      border-color: var(--border);
+    }
+
+    .palette-link strong {
+      display: block;
+      font-size: 0.88rem;
+    }
+
+    .palette-link small {
+      color: var(--slate);
+      font-size: 0.72rem;
+    }
+
+    .close-button {
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      border-radius: 6px;
+      font-size: 0.75rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .category-grid, .template-row {
+        grid-template-columns: 1fr;
+      }
+      .preview-viewport-wrapper {
+        height: 440px;
+      }
+    }
+  </style>
 </head>
-
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
 
+  <!-- Header -->
   <header class="site-header" aria-label="Primary header">
     <a class="brand" href="#home" aria-label="ManualTec home">
       <span class="brand-name">MANUALTEC</span>
       <span class="brand-caption">web development studio</span>
     </a>
 
-    <button
-      class="command-trigger"
-      id="commandTrigger"
-      type="button"
-      aria-label="Open navigation menu"
-      aria-expanded="false"
-      aria-controls="commandPalette"
-    >
+    <button class="command-trigger" id="commandTrigger" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="commandPalette">
       <span class="trigger-identity">
         <span class="identity-avatar">M</span>
         <span>
@@ -43,202 +600,100 @@
           <small>Menu</small>
         </span>
       </span>
-
-      <span class="trigger-key" aria-hidden="true">⌘ K</span>
-      <span class="trigger-icon" aria-hidden="true">+</span>
+      <span class="trigger-key" aria-hidden="true">⌘K</span>
     </button>
   </header>
 
-  <div
-    class="palette-backdrop"
-    id="paletteBackdrop"
-    hidden
-  ></div>
-
-  <aside
-    class="command-palette"
-    id="commandPalette"
-    aria-label="Command palette navigation"
-    aria-hidden="true"
-  >
+  <!-- Command Palette Modal -->
+  <div class="palette-backdrop" id="paletteBackdrop" hidden></div>
+  <aside class="command-palette" id="commandPalette" aria-label="Command palette navigation" aria-hidden="true">
     <div class="palette-top">
       <div>
         <span class="eyebrow">Navigate</span>
-        <h2>Where to next?</h2>
+        <h2 style="font-size: 1.25rem; margin: 0;">Where to next?</h2>
       </div>
-
-      <button
-        class="close-button"
-        id="closePalette"
-        type="button"
-        aria-label="Close navigation menu"
-      >
-        ×
-      </button>
+      <button class="close-button" id="closePalette" type="button" aria-label="Close navigation menu">ESC</button>
     </div>
 
     <div class="palette-search">
-      <span aria-hidden="true">⌕</span>
-      <input
-        id="paletteSearch"
-        type="search"
-        placeholder="Search sections..."
-        autocomplete="off"
-        aria-label="Search navigation sections"
-      />
-      <kbd>ESC</kbd>
+      <input id="paletteSearch" type="search" placeholder="Search sections..." autocomplete="off" aria-label="Search navigation sections" />
     </div>
 
     <nav class="palette-navigation" aria-label="Section navigation">
-      <button class="palette-link active" data-target="home" type="button">
-        <span class="nav-icon">⌂</span>
-        <span>
-          <strong>Home</strong>
-          <small>Return to the landing page</small>
-        </span>
-        <span class="nav-arrow">↗</span>
+      <button class="palette-link" data-target="home" type="button">
+        <span><strong>Home</strong><small>Return to landing page</small></span>
+        <span>→</span>
       </button>
-
       <button class="palette-link" data-target="portfolio" type="button">
-        <span class="nav-icon">◫</span>
-        <span>
-          <strong>Portfolio</strong>
-          <small>Explore selected directions</small>
-        </span>
-        <span class="nav-arrow">↗</span>
+        <span><strong>Portfolio</strong><small>Selected visual systems</small></span>
+        <span>→</span>
       </button>
-
-      <!-- Preview 1 Window Link -->
       <button class="palette-link" data-target="preview" type="button">
-        <span class="nav-icon">⛶</span>
-        <span>
-          <strong>Creation Preview</strong>
-          <small>Live interactive sandbox 1</small>
-        </span>
-        <span class="nav-arrow">↗</span>
+        <span><strong>Ejemplo Preview</strong><small>Live interactive sandbox 1</small></span>
+        <span>→</span>
       </button>
-
-      <!-- Preview 2 Window Link -->
-      <button class="palette-link" data-target="preview-ejemplo" type="button">
-        <span class="nav-icon">✦</span>
-        <span>
-          <strong>Ejemplo Preview</strong>
-          <small>Live interactive sandbox 2</small>
-        </span>
-        <span class="nav-arrow">↗</span>
+      <button class="palette-link" data-target="preview-palabra" type="button">
+        <span><strong>Palabra Preview</strong><small>Live interactive sandbox 2</small></span>
+        <span>→</span>
       </button>
-
       <button class="palette-link" data-target="catalog" type="button">
-        <span class="nav-icon">◌</span>
-        <span>
-          <strong>Catalog</strong>
-          <small>Browse website templates</small>
-        </span>
-        <span class="nav-arrow">↗</span>
+        <span><strong>Catalog</strong><small>Browse website templates</small></span>
+        <span>→</span>
       </button>
-
       <button class="palette-link" data-target="contact" type="button">
-        <span class="nav-icon">✳</span>
-        <span>
-          <strong>Contact</strong>
-          <small>Begin a new conversation</small>
-        </span>
-        <span class="nav-arrow">↗</span>
+        <span><strong>Contact</strong><small>Begin a conversation</small></span>
+        <span>→</span>
       </button>
     </nav>
-
-    <div class="palette-footer">
-      <span>ManualTec / 2026</span>
-      <span>Press <kbd>⌘ K</kbd> anytime</span>
-    </div>
   </aside>
 
   <main id="main-content">
-    <section class="hero section" id="home" aria-labelledby="hero-title">
+    <!-- Hero -->
+    <section class="hero container" id="home" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <span class="eyebrow reveal">Independent website studio</span>
-
-        <h1 id="hero-title" class="hero-title reveal">
-          Websites with
-          <em>presence.</em>
-        </h1>
-
-        <p class="hero-description reveal">
-          Thoughtful website templates and visual systems for people building
-          something worth remembering.
+        <span class="eyebrow">Independent website studio</span>
+        <h1 id="hero-title" class="hero-title">Websites with <em>presence.</em></h1>
+        <p class="hero-description">
+          Thoughtful website templates and visual systems for people building something worth remembering.
         </p>
-
-        <a class="text-link reveal" href="#portfolio">
-          Explore the work
-          <span aria-hidden="true">↘</span>
-        </a>
+        <a class="text-link" href="#portfolio">Explore the work <span aria-hidden="true">→</span></a>
       </div>
 
-      <div class="hero-visual reveal" aria-label="Abstract editorial composition">
-        <div class="hero-image">
-          <img
-            src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1500&q=85"
-            alt="Sculptural white architecture with geometric forms"
-          />
-        </div>
-
-        <div class="hero-stamp" aria-hidden="true">
-          <span>Design</span>
-          <span>Development</span>
-          <span>Direction</span>
-        </div>
-
-        <div class="hero-note">
-          <span class="note-line"></span>
-          <span>Web experiences<br />for modern makers</span>
-        </div>
+      <div class="hero-image" aria-label="Abstract editorial composition">
+        <img 
+          src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1500&q=85" 
+          alt="Sculptural white architecture with geometric forms" 
+        />
       </div>
     </section>
 
-    <section class="category-section section" id="portfolio" aria-labelledby="portfolio-title">
+    <!-- Category Grid -->
+    <section class="section container" id="portfolio" aria-labelledby="portfolio-title">
       <div class="section-heading">
-        <div>
-          <span class="eyebrow">Selected directions</span>
-          <h2 id="portfolio-title">Built to be <em>seen.</em></h2>
-        </div>
-
-        <p>
-          The purpose of this project is to portray the accessibility of
-          website development and website design. The selections of the
-          different websites will accomodate to your purpose.
-        </p>
+        <span class="eyebrow">Selected directions</span>
+        <h2 id="portfolio-title">Built to be <em>seen.</em></h2>
+        <p>The purpose of this project is to portray the accessibility of website development and design.</p>
       </div>
 
       <div class="category-grid">
-        <a class="category-card" href="#portfolio-detail">
-          <img
-            src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1200&q=85"
-            alt="Editorial print and design materials"
-          />
+        <a class="category-card" href="#preview">
+          <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1200&q=85" alt="Editorial print" />
           <span class="category-overlay"></span>
           <span class="category-content">
             <strong>Portfolio</strong>
             <small>Selected visual systems</small>
           </span>
         </a>
-
         <a class="category-card" href="#catalog">
-          <img
-            src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=85"
-            alt="Warm modern interior workspace"
-          />
+          <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=85" alt="Workspace" />
           <span class="category-overlay"></span>
           <span class="category-content">
             <strong>Catalog</strong>
             <small>Templates for every direction</small>
           </span>
         </a>
-
         <a class="category-card" href="#contact">
-          <img
-            src="https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=1200&q=85"
-            alt="Creative studio workspace"
-          />
+          <img src="https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=1200&q=85" alt="Studio" />
           <span class="category-overlay"></span>
           <span class="category-content">
             <strong>Contact</strong>
@@ -248,215 +703,207 @@
       </div>
     </section>
 
-    <div class="contour-divider" aria-hidden="true">
-      <svg viewBox="0 0 1440 180" preserveAspectRatio="none">
-        <path
-          d="M0 115C190 35 318 176 534 88C748 1 818 118 1025 81C1210 48 1304 71 1440 18V180H0Z"
-        />
-      </svg>
-    </div>
-
-    <section class="manifesto section" id="portfolio-detail" aria-labelledby="manifesto-title">
-      <div class="manifesto-inner">
-        <span class="eyebrow">The ManualTec approach</span>
-
-        <h2 id="manifesto-title">
-          Promote Your Business &amp; Commerce Products From
-          <em>Your Web</em> Accessibility.
-        </h2>
-
-        <p class="manifesto-subtitle">Where Creation Finds Its Growth.</p>
-
-        <p class="manifesto-body">
-          The new era of website development will open the opportunities that
-          can be accessed by everyone and anyone.
-        </p>
-      </div>
-    </section>
-
-    <!-- Interactive Live Sandbox 1: creation.terrible-360.workers.dev -->
-    <section class="preview-showcase-section section" id="preview" aria-labelledby="preview-heading">
+    <!-- Interactive Sandbox 01: ejemplo.manualtec.workers.dev -->
+    <section class="preview-showcase-section container" id="preview" aria-labelledby="preview-heading">
       <div class="section-heading">
-        <div>
-          <span class="eyebrow">Interactive Sandbox 01</span>
-          <h2 id="preview-heading">Experience Ejemplo <em>live.</em></h2>
-        </div>
-
-        <p>
-          Interact with ejemplo.terrible-360.workers.dev right in the browser window or expand to fullscreen for a complete preview experience.
-        </p>
+        <span class="eyebrow">Interactive Sandbox 01</span>
+        <h2 id="preview-heading">Experience Ejemplo <em>live.</em></h2>
+        <p>Interact with ejemplo.manualtec.workers.dev right in the browser viewport or expand to fullscreen.</p>
       </div>
 
       <div class="live-preview-window" id="previewContainer">
         <header class="preview-toolbar">
           <div class="toolbar-meta">
             <span class="toolbar-pill">Live Demo</span>
-            <span class="preview-site-title" id="previewSiteTitle">https://ejemplo.terrible-360.workers.dev/</span>
+            <span class="preview-site-title" id="previewSiteTitle">https://ejemplo.manualtec.workers.dev</span>
           </div>
-
           <div class="toolbar-actions">
-            <button
-              id="openNewTabBtn"
-              class="toolbar-btn secondary"
-              type="button"
-              aria-label="Open preview in new tab"
-            >
+            <a id="openNewTabBtn" class="toolbar-btn secondary" href="https://ejemplo.manualtec.workers.dev" target="_blank" rel="noopener noreferrer" aria-label="Open preview in new tab">
               Open Tab <span aria-hidden="true">↗</span>
-            </button>
-
-            <button
-              id="fullscreenBtn"
-              class="toolbar-btn primary"
-              type="button"
-              aria-label="Toggle full screen mode"
-            >
+            </a>
+            <button id="fullscreenBtn" class="toolbar-btn primary" type="button" aria-label="Toggle full screen mode">
               Full Screen <span class="btn-icon" aria-hidden="true">⛶</span>
             </button>
           </div>
         </header>
 
         <div class="preview-viewport-wrapper">
-          <iframe
+          <iframe 
             id="livePreviewIframe"
-            src="https://ejemplo.terrible-360.workers.dev/"
-            title="Interactive Creation Preview"
+            src="https://ejemplo.manualtec.workers.dev" 
+            title="Interactive Ejemplo Preview" 
             loading="lazy"
-            allow="fullscreen; autoplay; encrypted-media"
-            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-          ></iframe>
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads">
+          </iframe>
         </div>
       </div>
     </section>
 
-    <!-- Interactive Live Sandbox 2: ejemplo.terrible-360.workers.dev -->
-    <section class="preview-showcase-section section preview-alt-section" id="preview-ejemplo" aria-labelledby="preview-ejemplo-heading">
+    <!-- Interactive Sandbox 02: palabra.manualtec.workers.dev -->
+    <section class="preview-showcase-section container" id="preview-palabra" aria-labelledby="preview-palabra-heading">
       <div class="section-heading">
-        <div>
-          <span class="eyebrow">Interactive Sandbox 02</span>
-          <h2 id="preview-ejemplo-heading">Explore Palabra <em>live.</em></h2>
-        </div>
-
-        <p>
-          Interact with palabra.terrible-360.workers.dev directly through this dedicated viewport window with independent fullscreen and toolbar controls.
-        </p>
+        <span class="eyebrow">Interactive Sandbox 02</span>
+        <h2 id="preview-palabra-heading">Explore Palabra <em>live.</em></h2>
+        <p>Interact with palabra.manualtec.workers.dev directly through this dedicated viewport window.</p>
       </div>
 
-      <div class="live-preview-window" id="previewContainerEjemplo">
+      <div class="live-preview-window" id="previewContainerPalabra">
         <header class="preview-toolbar">
           <div class="toolbar-meta">
             <span class="toolbar-pill">Live Demo</span>
-            <span class="preview-site-title" id="previewSiteTitleEjemplo">palabra.terrible-360.workers.dev</span>
+            <span class="preview-site-title" id="previewSiteTitlePalabra">https://palabra.manualtec.workers.dev</span>
           </div>
-
           <div class="toolbar-actions">
-            <button
-              id="openNewTabBtnEjemplo"
-              class="toolbar-btn secondary"
-              type="button"
-              aria-label="Open ejemplo preview in new tab"
-            >
+            <a id="openNewTabBtnPalabra" class="toolbar-btn secondary" href="https://palabra.manualtec.workers.dev" target="_blank" rel="noopener noreferrer" aria-label="Open palabra preview in new tab">
               Open Tab <span aria-hidden="true">↗</span>
-            </button>
-
-            <button
-              id="fullscreenBtnEjemplo"
-              class="toolbar-btn primary"
-              type="button"
-              aria-label="Toggle full screen mode for ejemplo"
-            >
+            </a>
+            <button id="fullscreenBtnPalabra" class="toolbar-btn primary" type="button" aria-label="Toggle full screen mode for palabra">
               Full Screen <span class="btn-icon" aria-hidden="true">⛶</span>
             </button>
           </div>
         </header>
 
         <div class="preview-viewport-wrapper">
-          <iframe
-            id="livePreviewIframeEjemplo"
-            src="palabra.terrible-360.workers.dev"
-            title="Interactive Ejemplo Preview"
+          <iframe 
+            id="livePreviewIframePalabra"
+            src="https://palabra.manualtec.workers.dev" 
+            title="Interactive Palabra Preview" 
             loading="lazy"
-            allow="fullscreen; autoplay; encrypted-media"
-            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-          ></iframe>
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads">
+          </iframe>
         </div>
       </div>
     </section>
 
-    <section class="catalog-section section" id="catalog" aria-labelledby="catalog-title">
+    <!-- Catalog Section -->
+    <section class="section container" id="catalog" aria-labelledby="catalog-title">
       <div class="section-heading">
-        <div>
-          <span class="eyebrow">The template catalog</span>
-          <h2 id="catalog-title">Start with your <em>approach.</em></h2>
-        </div>
-
-        <p>
-          The presentations of the website display the structure of the
-          different website development. With various options, the catalog
-          will provide the theme you want your website design.
-        </p>
+        <span class="eyebrow">The template catalog</span>
+        <h2 id="catalog-title">Start with your <em>approach.</em></h2>
+        <p>The presentations of the website display the structure of different website developments.</p>
       </div>
 
       <div class="template-row">
-        <article class="template-card" data-url="palabra.terrible-360.workers.dev" data-title="01 / Atelier — Ejemplo">
-          <div class="template-preview preview-one">
-            <span class="preview-label">01 / Atelier</span>
-            <span class="preview-title">Expose<br /><em>your brand.</em></span>
+        <article class="template-card">
+          <div class="template-preview">
+            <span style="font-size: 0.72rem; color: var(--slate);">01 Atelier</span>
+            <span>Expose<br/><em>your brand.</em></span>
           </div>
           <div class="template-meta">
-            <span>Editorial / 01</span>
+            <span>Editorial 01</span>
             <strong>Atelier</strong>
           </div>
         </article>
 
-        <article class="template-card" data-url="palabra.terrible-360.workers.dev" data-title="02 / Forma — Ejemplo">
-          <div class="template-preview preview-two">
-            <span class="preview-label">02 / Forma</span>
-            <span class="preview-title">Promote<br /><em>your product.</em></span>
+        <article class="template-card">
+          <div class="template-preview">
+            <span style="font-size: 0.72rem; color: var(--slate);">02 Forma</span>
+            <span>Promote<br/><em>your product.</em></span>
           </div>
           <div class="template-meta">
-            <span>Architecture / 02</span>
+            <span>Architecture 02</span>
             <strong>Forma</strong>
           </div>
         </article>
 
-        <article class="template-card" data-url="palabra.terrible-360.workers.dev" data-title="03 / Folio — Personal">
-          <div class="template-preview preview-three">
-            <span class="preview-label">03 / Folio</span>
-            <span class="preview-title">Make it<br /><em>personal.</em></span>
+        <article class="template-card">
+          <div class="template-preview">
+            <span style="font-size: 0.72rem; color: var(--slate);">03 Folio</span>
+            <span>Make it<br/><em>personal.</em></span>
           </div>
           <div class="template-meta">
-            <span>Portfolio / 03</span>
+            <span>Portfolio 03</span>
             <strong>Folio</strong>
           </div>
         </article>
       </div>
     </section>
 
-    <section class="contact-section section" id="contact" aria-labelledby="contact-title">
-      <div class="contact-content">
-        <span class="eyebrow">Start a conversation</span>
-        <h2 id="contact-title">Have an idea<br /><em>in mind?</em></h2>
-
-        <a
-          class="email-pill"
-          href="mailto:ivanzavala26@gmail.com"
-          aria-label="Email ManualTec at ivanzavala26@gmail.com"
-        >
-          <span>ivanzavala26@gmail.com</span>
-          <span aria-hidden="true">↗</span>
-        </a>
-      </div>
-
-      <div class="contact-mark" aria-hidden="true">M</div>
+    <!-- Contact Section -->
+    <section class="contact-section container" id="contact" aria-labelledby="contact-title">
+      <span class="eyebrow">Start a conversation</span>
+      <h2 id="contact-title" style="font-size: 2.8rem; margin: 10px 0 20px;">Have an idea <em>in mind?</em></h2>
+      <a class="email-pill" href="mailto:ivanzavala26@gmail.com" aria-label="Email ManualTec">
+        <span>ivanzavala26@gmail.com</span>
+        <span aria-hidden="true">→</span>
+      </a>
     </section>
   </main>
 
-  <footer class="site-footer">
+  <!-- Footer -->
+  <footer class="site-footer container">
     <span>© 2026 ManualTec</span>
-    <span>Website development / visual direction</span>
+    <span>Website development & visual direction</span>
     <a href="#home">Back to top ↑</a>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- JavaScript Interactivity -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Command Palette / Navigation Toggle
+      const trigger = document.getElementById('commandTrigger');
+      const backdrop = document.getElementById('paletteBackdrop');
+      const palette = document.getElementById('commandPalette');
+      const closeBtn = document.getElementById('closePalette');
+      const links = document.querySelectorAll('.palette-link');
+
+      function openPalette() {
+        backdrop.hidden = false;
+        palette.setAttribute('aria-hidden', 'false');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+
+      function closePalette() {
+        backdrop.hidden = true;
+        palette.setAttribute('aria-hidden', 'true');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+
+      trigger?.addEventListener('click', openPalette);
+      closeBtn?.addEventListener('click', closePalette);
+      backdrop?.addEventListener('click', closePalette);
+
+      links.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetId = btn.getAttribute('data-target');
+          closePalette();
+          const el = document.getElementById(targetId);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          if (palette.getAttribute('aria-hidden') === 'true') openPalette();
+          else closePalette();
+        }
+        if (e.key === 'Escape' && palette.getAttribute('aria-hidden') === 'false') {
+          closePalette();
+        }
+      });
+
+      // 2. Fullscreen Handlers for Sandboxes
+      function setupFullscreen(btnId, containerId) {
+        const btn = document.getElementById(btnId);
+        const container = document.getElementById(containerId);
+
+        btn?.addEventListener('click', () => {
+          if (!document.fullscreenElement) {
+            container?.requestFullscreen().catch(err => {
+              console.warn(`Fullscreen error: ${err.message}`);
+            });
+          } else {
+            document.exitFullscreen();
+          }
+        });
+      }
+
+      setupFullscreen('fullscreenBtn', 'previewContainer');
+      setupFullscreen('fullscreenBtnPalabra', 'previewContainerPalabra');
+    });
+  </script>
 </body>
 </html>
