@@ -19,7 +19,7 @@ const openNewTabBtnEjemplo = document.getElementById('openNewTabBtnEjemplo');
 const templateCards = document.querySelectorAll('.template-card[data-url]');
 
 const SCRIPT_URL =
-  'https://script.google.com/macros/s/AKfycbxJl1brCBV1WGc7L7PlfU8Cx9mP3dfM4JDMVRfze9U/exec';
+  'https://script.google.com/macros/s/AKfycby_KsrhiGVuSAIoVBq6CPioTYR8hrCuaqESsB3YU8WcgvkCTcoJ2n0Lfk9to7solgqrnQ/exec';
 
 const surveyForm = document.getElementById('surveyForm');
 const submitBtn = document.getElementById('submitBtn');
@@ -68,12 +68,7 @@ function navigateToSection(targetId) {
 
 commandTrigger?.addEventListener('click', () => {
   const isOpen = commandTrigger.getAttribute('aria-expanded') === 'true';
-
-  if (isOpen) {
-    closePalette();
-  } else {
-    openPalette();
-  }
+  isOpen ? closePalette() : openPalette();
 });
 
 closePaletteButton?.addEventListener('click', closePalette);
@@ -81,14 +76,7 @@ paletteBackdrop?.addEventListener('click', closePalette);
 
 paletteLinks.forEach((link) => {
   link.addEventListener('click', () => {
-    const targetId = link.dataset.target;
-
-    if (targetId === 'portfolio') {
-      navigateToSection('portfolio');
-      return;
-    }
-
-    navigateToSection(targetId);
+    navigateToSection(link.dataset.target);
   });
 });
 
@@ -112,8 +100,7 @@ paletteSearch?.addEventListener('input', (event) => {
   const searchTerm = event.target.value.toLowerCase().trim();
 
   paletteLinks.forEach((link) => {
-    const searchableText = link.textContent.toLowerCase();
-    link.hidden = !searchableText.includes(searchTerm);
+    link.hidden = !link.textContent.toLowerCase().includes(searchTerm);
   });
 });
 
@@ -228,12 +215,10 @@ surveyForm?.addEventListener('submit', async (event) => {
     return;
   }
 
-  const nameInput = document.getElementById('name');
-  const emailInput = document.getElementById('email');
-
+  const formData = new FormData(surveyForm);
   const payload = {
-    name: nameInput.value.trim(),
-    email: emailInput.value.trim(),
+    name: String(formData.get('name') || '').trim(),
+    email: String(formData.get('email') || '').trim(),
     sourceUrl: window.location.href
   };
 
@@ -264,7 +249,7 @@ surveyForm?.addEventListener('submit', async (event) => {
     if (successMessage) {
       successMessage.classList.remove('error-alert');
       successMessage.textContent =
-        'Thank you! Your response has been recorded.';
+        'Thank you! Your response has been submitted.';
       successMessage.hidden = false;
     }
   } catch (error) {
