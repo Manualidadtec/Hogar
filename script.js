@@ -203,42 +203,71 @@ templateCards.forEach((card) => {
   });
 });
 
-// Survey Form Asynchronous Transmission
-surveyForm?.addEventListener('submit', (e) => {
-  e.preventDefault();
+// Survey form → Google Apps Script
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxDRqliYnK6oXW9R_VxfhJ1Ju3oG0srbE-NJl75zSFhSNyxPGV0A_EVd33_UdDTv5cdTA/exec';
 
-  const nameInput = document.getElementById('name');
-  const emailInput = document.getElementById('email');
+const surveyForm = document.getElementById('surveyForm');
+const submitBtn = document.getElementById('submitBtn');
+const successMessage = document.getElementById('successMessage');
+
+surveyForm?.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  if (!surveyForm.checkValidity()) {
+    surveyForm.reportValidity();
+    return;
+  }
+
+  const formData = new FormData(surveyForm);
 
   const payload = {
-    name: nameInput.value.trim(),
-    email: emailInput.value.trim(),
-    timestamp: new Date().toLocaleString()
+    name: String(formData.get('name') || '').trim(),
+    email: String(formData.get('email') || '').trim(),
+    source: window.location.href
   };
 
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Submitting...';
-  if (successMessage) successMessage.hidden = true;
+  const originalButtonText = submitBtn?.textContent || 'Submit Survey';
 
-  // Sends payload to the updated Google Apps Script execution endpoint
-  fetch(SCRIPT_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload)
-  })
-    .then(() => {
-      if (successMessage) successMessage.hidden = false;
-      surveyForm.reset();
-    })
-    .catch((err) => {
-      console.error('Survey submission error:', err);
-      alert('There was an error submitting the survey. Please try again.');
-    })
-    .finally(() => {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Submit Survey';
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+  }
+
+  if (successMessage) {
+    successMessage.hidden = true;
+    successMessage.classList.remove('error-alert');
+  }
+
+  try {
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      body: JSON.stringify(payload)
     });
+
+    surveyForm.reset();
+
+    if (successMessage) {
+      successMessage.textContent =
+        'Thank you! Your response has been submitted.';
+      successMessage.hidden = false;
+    }
+  } catch (error) {
+    console.error('Survey submission error:', error);
+
+    if (successMessage) {
+      successMessage.classList.add('error-alert');
+      successMessage.textContent =
+        'We could not submit your response. Please try again.';
+      successMessage.hidden = false;
+    }
+  } finally {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalButtonText;
+    }
+  }
 });
