@@ -20,7 +20,7 @@ const openNewTabBtnEjemplo = document.getElementById('openNewTabBtnEjemplo');
 const templateCards = document.querySelectorAll('.template-card[data-url]');
 
 // Google Apps Script Production Web App Endpoint (Resolves Execution & Storage Issues)
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxiw6zQALoBr_TjxYKObkIyaJdc1TDGj7ZC8qPNRO51/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxDRqliYnK6oXW9R_VxfhJ1Ju3oG0srbE-NJl75zSFhSNyxPGV0A_EVd33_UdDTv5cdTA/exec';
 const surveyForm = document.getElementById('surveyForm');
 const submitBtn = document.getElementById('submitBtn');
 const successMessage = document.getElementById('successMessage');
