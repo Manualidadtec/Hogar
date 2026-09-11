@@ -1086,3 +1086,8 @@ kbd {
   .contact-mark { right: -30px; bottom: -35px; font-size: 20rem; }
   .site-footer { flex-direction: column; align-items: flex-start; padding: 22px 20px; }
 }
+.error-alert {
+  color: #8b2d2d;
+  background: #fff1f1;
+  border-color: #ebbbbb;
+}
