@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ManualTec creates refined website templates and visual development experiences.">
-  <title>ManualTec | Website Development</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="hogar-styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ManualTec creates refined website templates and visual development experiences." />
+  <title>ManualTec — Website Development</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
 
+  <!-- Header -->
   <header class="site-header" aria-label="Primary header">
     <a class="brand" href="#home" aria-label="ManualTec home">
       <span class="brand-name">MANUALTEC</span>
@@ -27,84 +29,123 @@
           <small>Menu</small>
         </span>
       </span>
-      <span class="trigger-key" aria-hidden="true">⌘ K</span>
+      <span class="trigger-key" aria-hidden="true">⌘K</span>
       <span class="trigger-icon" aria-hidden="true">+</span>
     </button>
   </header>
 
+  <!-- Command Palette Modal -->
   <div class="palette-backdrop" id="paletteBackdrop" hidden></div>
-
   <aside class="command-palette" id="commandPalette" aria-label="Command palette navigation" aria-hidden="true">
     <div class="palette-top">
       <div>
         <span class="eyebrow">Navigate</span>
         <h2>Where to next?</h2>
       </div>
-      <button class="close-button" id="closePalette" type="button" aria-label="Close navigation menu">×</button>
+      <button class="close-button" id="closePalette" type="button" aria-label="Close navigation menu">&times;</button>
     </div>
 
     <div class="palette-search">
       <span aria-hidden="true">⌕</span>
-      <input id="paletteSearch" type="search" placeholder="Search sections..." autocomplete="off" aria-label="Search navigation sections">
+      <input id="paletteSearch" type="search" placeholder="Search sections..." autocomplete="off" aria-label="Search navigation sections" />
       <kbd>ESC</kbd>
     </div>
 
     <nav class="palette-navigation" aria-label="Section navigation">
       <button class="palette-link active" data-target="home" type="button">
         <span class="nav-icon">⌂</span>
-        <span><strong>Home</strong><small>Return to the landing page</small></span>
+        <span>
+          <strong>Home</strong>
+          <small>Return to the landing page</small>
+        </span>
         <span class="nav-arrow">→</span>
       </button>
+
       <button class="palette-link" data-target="portfolio" type="button">
         <span class="nav-icon">✦</span>
-        <span><strong>Portfolio</strong><small>Explore selected directions</small></span>
+        <span>
+          <strong>Portfolio</strong>
+          <small>Explore selected directions</small>
+        </span>
         <span class="nav-arrow">→</span>
       </button>
+
+      <!-- Preview 1 Window Link -->
       <button class="palette-link" data-target="preview" type="button">
-        <span class="nav-icon">◫</span>
-        <span><strong>Ejemplo Preview</strong><small>Live interactive sandbox 1</small></span>
+        <span class="nav-icon">⛶</span>
+        <span>
+          <strong>Ejemplo Preview</strong>
+          <small>Live interactive sandbox 1</small>
+        </span>
         <span class="nav-arrow">→</span>
       </button>
+
+      <!-- Preview 2 Window Link -->
       <button class="palette-link" data-target="preview-ejemplo" type="button">
-        <span class="nav-icon">◫</span>
-        <span><strong>Palabra Preview</strong><small>Live interactive sandbox 2</small></span>
+        <span class="nav-icon">⛶</span>
+        <span>
+          <strong>Palabra Preview</strong>
+          <small>Live interactive sandbox 2</small>
+        </span>
         <span class="nav-arrow">→</span>
       </button>
+
       <button class="palette-link" data-target="catalog" type="button">
-        <span class="nav-icon">▦</span>
-        <span><strong>Catalog</strong><small>Browse website templates</small></span>
+        <span class="nav-icon">❖</span>
+        <span>
+          <strong>Catalog</strong>
+          <small>Browse website templates</small>
+        </span>
         <span class="nav-arrow">→</span>
       </button>
+
       <button class="palette-link" data-target="survey" type="button">
         <span class="nav-icon">✎</span>
-        <span><strong>Survey Form</strong><small>Feedback and intake form</small></span>
+        <span>
+          <strong>Survey Form</strong>
+          <small>Feedback &amp; intake form</small>
+        </span>
         <span class="nav-arrow">→</span>
       </button>
+
       <button class="palette-link" data-target="contact" type="button">
         <span class="nav-icon">✉</span>
-        <span><strong>Contact</strong><small>Begin a new conversation</small></span>
+        <span>
+          <strong>Contact</strong>
+          <small>Begin a new conversation</small>
+        </span>
         <span class="nav-arrow">→</span>
       </button>
     </nav>
 
     <div class="palette-footer">
-      <span>ManualTec 2026</span>
+      <span>ManualTec © 2026</span>
       <span>Press <kbd>⌘</kbd> <kbd>K</kbd> anytime</span>
     </div>
   </aside>
 
   <main id="main-content">
+    <!-- Hero -->
     <section class="hero section" id="home" aria-labelledby="hero-title">
       <div class="hero-copy">
         <span class="eyebrow reveal">Independent website studio</span>
-        <h1 id="hero-title" class="hero-title reveal">Websites with <em>presence.</em></h1>
-        <p class="hero-description reveal">Thoughtful website templates and visual systems for people building something worth remembering.</p>
-        <a class="text-link reveal" href="#portfolio">Explore the work <span aria-hidden="true">→</span></a>
+        <h1 id="hero-title" class="hero-title reveal">
+          Websites with <em>presence.</em>
+        </h1>
+        <p class="hero-description reveal">
+          Thoughtful website templates and visual systems for people building something worth remembering.
+        </p>
+        <a class="text-link reveal" href="#portfolio">
+          Explore the work <span aria-hidden="true">→</span>
+        </a>
       </div>
 
       <div class="hero-visual reveal" aria-label="Abstract editorial composition">
         <div class="hero-image">
-          <img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1500&q=85" alt="Sculptural white architecture with geometric forms">
+          <img 
+            src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?autoformatfitcropw1500q85" 
+            alt="Sculptural white architecture with geometric forms" 
+          />
         </div>
         <div class="hero-stamp" aria-hidden="true">
           <span>Design</span>
@@ -113,35 +154,49 @@
         </div>
         <div class="hero-note">
           <span class="note-line"></span>
-          <span>Web experiences<br>for modern makers</span>
+          <span>Web experiences<br />for modern makers</span>
         </div>
       </div>
     </section>
 
+    <!-- Category Grid -->
     <section class="category-section section" id="portfolio" aria-labelledby="portfolio-title">
       <div class="section-heading">
         <div>
           <span class="eyebrow">Selected directions</span>
           <h2 id="portfolio-title">Built to be <em>seen.</em></h2>
         </div>
-        <p>The purpose of this project is to portray the accessibility of website development and website design. The selections of the different websites will accommodate your purpose.</p>
+        <p>
+          The purpose of this project is to portray the accessibility of website development and website design. The selections of the different websites will accommodate to your purpose.
+        </p>
       </div>
 
       <div class="category-grid">
         <a class="category-card" href="#portfolio-detail">
-          <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1200&q=85" alt="Editorial print and design materials">
+          <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?autoformatfitcropw1200q85" alt="Editorial print and design materials" />
           <span class="category-overlay"></span>
-          <span class="category-content"><strong>Portfolio</strong><small>Selected visual systems</small></span>
+          <span class="category-content">
+            <strong>Portfolio</strong>
+            <small>Selected visual systems</small>
+          </span>
         </a>
+
         <a class="category-card" href="#catalog">
-          <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=85" alt="Warm modern interior workspace">
+          <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?autoformatfitcropw1200q85" alt="Warm modern interior workspace" />
           <span class="category-overlay"></span>
-          <span class="category-content"><strong>Catalog</strong><small>Templates for every direction</small></span>
+          <span class="category-content">
+            <strong>Catalog</strong>
+            <small>Templates for every direction</small>
+          </span>
         </a>
+
         <a class="category-card" href="#survey">
-          <img src="https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=1200&q=85" alt="Creative studio workspace">
+          <img src="https://images.unsplash.com/photo-1497215842964-222b430dc094?autoformatfitcropw1200q85" alt="Creative studio workspace" />
           <span class="category-overlay"></span>
-          <span class="category-content"><strong>Survey</strong><small>Share your insights</small></span>
+          <span class="category-content">
+            <strong>Survey</strong>
+            <small>Share your insights</small>
+          </span>
         </a>
       </div>
     </section>
@@ -152,22 +207,30 @@
       </svg>
     </div>
 
+    <!-- Manifesto -->
     <section class="manifesto section" id="portfolio-detail" aria-labelledby="manifesto-title">
       <div class="manifesto-inner">
         <span class="eyebrow">The ManualTec approach</span>
-        <h2 id="manifesto-title">Promote Your Business &amp; Commerce Products From <em>Your Web</em> Accessibility.</h2>
+        <h2 id="manifesto-title">
+          Promote Your Business &amp; Commerce Products From <em>Your Web</em> Accessibility.
+        </h2>
         <p class="manifesto-subtitle">Where Creation Finds Its Growth.</p>
-        <p class="manifesto-body">The new era of website development will open opportunities that can be accessed by everyone and anyone.</p>
+        <p class="manifesto-body">
+          The new era of website development will open the opportunities that can be accessed by everyone and anyone.
+        </p>
       </div>
     </section>
 
+    <!-- Interactive Live Sandbox 1: ejemplo.manualtec.workers.dev -->
     <section class="preview-showcase-section section" id="preview" aria-labelledby="preview-heading">
       <div class="section-heading">
         <div>
           <span class="eyebrow">Interactive Sandbox 01</span>
           <h2 id="preview-heading">Experience Ejemplo <em>live.</em></h2>
         </div>
-        <p>Interact with ejemplo.manualtec.workers.dev right in the browser window or expand to fullscreen for a complete preview experience.</p>
+        <p>
+          Interact with ejemplo.manualtec.workers.dev right in the browser window or expand to fullscreen for a complete preview experience.
+        </p>
       </div>
 
       <div class="live-preview-window" id="previewContainer">
@@ -177,23 +240,38 @@
             <span class="preview-site-title" id="previewSiteTitle">https://ejemplo.manualtec.workers.dev</span>
           </div>
           <div class="toolbar-actions">
-            <button id="openNewTabBtn" class="toolbar-btn secondary" type="button" aria-label="Open preview in new tab">Open Tab <span aria-hidden="true">↗</span></button>
-            <button id="fullscreenBtn" class="toolbar-btn primary" type="button" aria-label="Toggle full screen mode">Full Screen <span class="btn-icon" aria-hidden="true">⛶</span></button>
+            <button id="openNewTabBtn" class="toolbar-btn secondary" type="button" aria-label="Open preview in new tab">
+              Open Tab <span aria-hidden="true">↗</span>
+            </button>
+            <button id="fullscreenBtn" class="toolbar-btn primary" type="button" aria-label="Toggle full screen mode">
+              Full Screen <span class="btn-icon" aria-hidden="true">⛶</span>
+            </button>
           </div>
         </header>
+
         <div class="preview-viewport-wrapper">
-          <iframe id="livePreviewIframe" src="https://ejemplo.manualtec.workers.dev" title="Interactive Creation Preview" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads"></iframe>
+          <iframe 
+            id="livePreviewIframe"
+            src="https://ejemplo.manualtec.workers.dev" 
+            title="Interactive Creation Preview" 
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads">
+          </iframe>
         </div>
       </div>
     </section>
 
+    <!-- Interactive Live Sandbox 2: palabra.manualtec.workers.dev -->
     <section class="preview-showcase-section section preview-alt-section" id="preview-ejemplo" aria-labelledby="preview-ejemplo-heading">
       <div class="section-heading">
         <div>
           <span class="eyebrow">Interactive Sandbox 02</span>
           <h2 id="preview-ejemplo-heading">Explore Palabra <em>live.</em></h2>
         </div>
-        <p>Interact with palabra.manualtec.workers.dev directly through this dedicated viewport window with independent fullscreen and toolbar controls.</p>
+        <p>
+          Interact with palabra.manualtec.workers.dev directly through this dedicated viewport window with independent fullscreen and toolbar controls.
+        </p>
       </div>
 
       <div class="live-preview-window" id="previewContainerEjemplo">
@@ -203,50 +281,77 @@
             <span class="preview-site-title" id="previewSiteTitleEjemplo">https://palabra.manualtec.workers.dev</span>
           </div>
           <div class="toolbar-actions">
-            <button id="openNewTabBtnEjemplo" class="toolbar-btn secondary" type="button" aria-label="Open palabra preview in new tab">Open Tab <span aria-hidden="true">↗</span></button>
-            <button id="fullscreenBtnEjemplo" class="toolbar-btn primary" type="button" aria-label="Toggle full screen mode for palabra">Full Screen <span class="btn-icon" aria-hidden="true">⛶</span></button>
+            <button id="openNewTabBtnEjemplo" class="toolbar-btn secondary" type="button" aria-label="Open palabra preview in new tab">
+              Open Tab <span aria-hidden="true">↗</span>
+            </button>
+            <button id="fullscreenBtnEjemplo" class="toolbar-btn primary" type="button" aria-label="Toggle full screen mode for palabra">
+              Full Screen <span class="btn-icon" aria-hidden="true">⛶</span>
+            </button>
           </div>
         </header>
+
         <div class="preview-viewport-wrapper">
-          <iframe id="livePreviewIframeEjemplo" src="https://palabra.manualtec.workers.dev" title="Interactive Palabra Preview" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads"></iframe>
+          <iframe 
+            id="livePreviewIframeEjemplo"
+            src="https://palabra.manualtec.workers.dev" 
+            title="Interactive Palabra Preview" 
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads">
+          </iframe>
         </div>
       </div>
     </section>
 
+    <!-- Catalog Section -->
     <section class="catalog-section section" id="catalog" aria-labelledby="catalog-title">
       <div class="section-heading">
         <div>
           <span class="eyebrow">The template catalog</span>
           <h2 id="catalog-title">Start with your <em>approach.</em></h2>
         </div>
-        <p>The presentations of the website display the structure of different website development approaches. The catalog provides themes for the website design you want.</p>
+        <p>
+          The presentations of the website display the structure of the different website development. With various options, the catalog will provide the theme you want your website design.
+        </p>
       </div>
 
       <div class="template-row">
         <article class="template-card" data-url="https://palabra.manualtec.workers.dev" data-title="01 Atelier Ejemplo">
           <div class="template-preview preview-one">
             <span class="preview-label">01 Atelier</span>
-            <span class="preview-title">Expose<br><em>your brand.</em></span>
+            <span class="preview-title">Expose<br /><em>your brand.</em></span>
           </div>
-          <div class="template-meta"><span>Editorial 01</span><strong>Atelier</strong></div>
+          <div class="template-meta">
+            <span>Editorial 01</span>
+            <strong>Atelier</strong>
+          </div>
         </article>
+
         <article class="template-card" data-url="https://palabra.manualtec.workers.dev" data-title="02 Forma Ejemplo">
           <div class="template-preview preview-two">
             <span class="preview-label">02 Forma</span>
-            <span class="preview-title">Promote<br><em>your product.</em></span>
+            <span class="preview-title">Promote<br /><em>your product.</em></span>
           </div>
-          <div class="template-meta"><span>Architecture 02</span><strong>Forma</strong></div>
+          <div class="template-meta">
+            <span>Architecture 02</span>
+            <strong>Forma</strong>
+          </div>
         </article>
+
         <article class="template-card" data-url="https://palabra.manualtec.workers.dev" data-title="03 Folio Personal">
           <div class="template-preview preview-three">
             <span class="preview-label">03 Folio</span>
-            <span class="preview-title">Make it<br><em>personal.</em></span>
+            <span class="preview-title">Make it<br /><em>personal.</em></span>
           </div>
-          <div class="template-meta"><span>Portfolio 03</span><strong>Folio</strong></div>
+          <div class="template-meta">
+            <span>Portfolio 03</span>
+            <strong>Folio</strong>
+          </div>
         </article>
       </div>
     </section>
 
+    <!-- Integrated Survey Form Section (Direct Google Apps Script Integration) -->
     <section class="survey-section section" id="survey" aria-labelledby="survey-title">
       <div class="survey-wrapper">
         <h2 id="survey-title" class="survey-title">Survey <em>Form</em></h2>
@@ -254,18 +359,18 @@
         <div class="survey-card">
           <p class="survey-subtitle">Let us know how we can improve our service</p>
 
-          <form id="surveyForm" novalidate>
+          <form id="surveyForm">
             <div class="form-row">
-              <label for="name" class="form-label">Name</label>
+              <label for="name" class="form-label">*Name:</label>
               <div class="form-control">
-                <input type="text" id="name" name="name" placeholder="Enter your name" autocomplete="name" maxlength="500" required>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required autocomplete="name" />
               </div>
             </div>
 
             <div class="form-row">
-              <label for="email" class="form-label">Email</label>
+              <label for="email" class="form-label">*Email:</label>
               <div class="form-control">
-                <input type="email" id="email" name="email" placeholder="Enter your email" autocomplete="email" maxlength="500" required>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required autocomplete="email" />
               </div>
             </div>
 
@@ -273,16 +378,17 @@
               <button type="submit" id="submitBtn" class="submit-button">Submit Survey</button>
             </div>
 
-            <p id="successMessage" class="success-alert" role="status" aria-live="polite" hidden></p>
+            <p id="successMessage" class="success-alert" hidden>✓ Thank you! Your response has been recorded.</p>
           </form>
         </div>
       </div>
     </section>
 
+    <!-- Contact Section -->
     <section class="contact-section section" id="contact" aria-labelledby="contact-title">
       <div class="contact-content">
         <span class="eyebrow">Start a conversation</span>
-        <h2 id="contact-title">Have an idea<br><em>in mind?</em></h2>
+        <h2 id="contact-title">Have an idea<br /><em>in mind?</em></h2>
         <a class="email-pill" href="mailto:ivanzavala26@gmail.com" aria-label="Email ManualTec at ivanzavala26@gmail.com">
           <span>ivanzavala26@gmail.com</span>
           <span aria-hidden="true">→</span>
@@ -292,12 +398,13 @@
     </section>
   </main>
 
+  <!-- Footer -->
   <footer class="site-footer">
     <span>© 2026 ManualTec</span>
     <span>Website development &amp; visual direction</span>
-    <a href="#home">Back to top</a>
+    <a href="#home">Back to top ↑</a>
   </footer>
 
-  <script src="hogar-script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
