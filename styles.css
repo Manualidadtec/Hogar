@@ -767,15 +767,15 @@ kbd {
 }
 
 .preview-one {
-  background: #987963 url('https://images.unsplash.com/photo-1531058020387-3be344556be6?autoformatfitcropw1000q80') center/cover;
+  background: #987963 url('https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=1000&q=80') center/cover;
 }
 
 .preview-two {
-  background: #6e7770 url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?autoformatfitcropw1000q80') center/cover;
+  background: #6e7770 url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=80') center/cover;
 }
 
 .preview-three {
-  background: #927d66 url('https://images.unsplash.com/photo-1518005020951-eccb494ad742?autoformatfitcropw1000q80') center/cover;
+  background: #927d66 url('https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1000&q=80') center/cover;
 }
 
 .template-preview::after {
@@ -946,6 +946,12 @@ kbd {
   margin-top: 20px;
 }
 
+.error-alert {
+  color: #8b2d2d;
+  background: #fff1f1;
+  border-color: #ebbbbb;
+}
+
 /* Contact Section */
 .contact-section {
   position: relative;
@@ -1044,6 +1050,7 @@ kbd {
     opacity: 0;
     transform: translateY(18px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1057,14 +1064,16 @@ kbd {
   .section { padding: 82px 20px; }
   .hero { display: block; min-height: auto; padding-top: 155px; }
   .hero-description { max-width: 330px; }
-  .hero-visual min-height: 470px; margin-top: 70px; }
+  .hero-visual { min-height: 470px; margin-top: 70px; }
   .hero-image { right: 4%; width: 82%; height: 450px; }
   .section-heading { display: block; }
   .section-heading p { margin-top: 24px; }
   .preview-viewport-wrapper { height: 420px; }
   .preview-toolbar { flex-direction: column; align-items: flex-start; gap: 12px; }
   .toolbar-actions { width: 100%; justify-content: flex-start; }
-  .category-grid, .template-row {
+
+  .category-grid,
+  .template-row {
     display: flex;
     gap: 10px;
     overflow-x: auto;
@@ -1074,6 +1083,7 @@ kbd {
     scroll-snap-type: x mandatory;
     scrollbar-width: thin;
   }
+
   .category-card { min-width: 82vw; min-height: 430px; scroll-snap-align: start; }
   .template-card { min-width: 78vw; scroll-snap-align: start; }
   .template-preview { min-height: 410px; }
