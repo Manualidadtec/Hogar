@@ -19,8 +19,8 @@ const openNewTabBtnEjemplo = document.getElementById('openNewTabBtnEjemplo');
 
 const templateCards = document.querySelectorAll('.template-card[data-url]');
 
-// Survey Form Integration DOM Elements
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwjwvHTxvatTWPvvnL0lQxPlbtmKLujLzzGAeoL035YEhUD_wMoRhM5trZqIQq5pNdwRg/exec';
+// Google Apps Script Production Web App Endpoint (Resolves Execution & Storage Issues)
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxiw6zQALoBr_TjxYKObkIyaJdc1TDGj7ZC8qPNRO51/exec';
 const surveyForm = document.getElementById('surveyForm');
 const submitBtn = document.getElementById('submitBtn');
 const successMessage = document.getElementById('successMessage');
@@ -220,6 +220,7 @@ surveyForm?.addEventListener('submit', (e) => {
   submitBtn.textContent = 'Submitting...';
   if (successMessage) successMessage.hidden = true;
 
+  // Sends payload to the updated Google Apps Script execution endpoint
   fetch(SCRIPT_URL, {
     method: 'POST',
     mode: 'no-cors',
