@@ -5,7 +5,6 @@ const closePaletteButton = document.getElementById('closePalette');
 const paletteSearch = document.getElementById('paletteSearch');
 const paletteLinks = [...document.querySelectorAll('.palette-link')];
 
-// Live Preview DOM Elements
 const previewContainer = document.getElementById('previewContainer');
 const livePreviewIframe = document.getElementById('livePreviewIframe');
 const previewSiteTitle = document.getElementById('previewSiteTitle');
@@ -19,29 +18,36 @@ const openNewTabBtnEjemplo = document.getElementById('openNewTabBtnEjemplo');
 
 const templateCards = document.querySelectorAll('.template-card[data-url]');
 
-// Google Apps Script Production Web App Endpoint (Resolves Execution & Storage Issues)
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxiw6zQALoBr_TjxYKObkIyaJdc1TDGj7ZC8qPNRO51/exec';
+const SCRIPT_URL =
+  'https://script.google.com/macros/s/AKfycbyYD2qXsshFU2gXiUO1U1qx5gmbkeiuYJM29JCSCvhOc7wT2uHPkaS0vneB3w26zzVX/exec';
+
 const surveyForm = document.getElementById('surveyForm');
 const submitBtn = document.getElementById('submitBtn');
 const successMessage = document.getElementById('successMessage');
 
 function openPalette() {
+  if (!commandTrigger || !commandPalette || !paletteBackdrop) return;
+
   paletteBackdrop.hidden = false;
   commandPalette.setAttribute('aria-hidden', 'false');
   commandTrigger.setAttribute('aria-expanded', 'true');
   commandPalette.classList.add('is-open');
   document.body.classList.add('menu-open');
-  window.setTimeout(() => paletteSearch.focus(), 120);
+  window.setTimeout(() => paletteSearch?.focus(), 120);
 }
 
 function closePalette() {
+  if (!commandTrigger || !commandPalette || !paletteBackdrop) return;
+
   commandPalette.classList.remove('is-open');
   commandPalette.setAttribute('aria-hidden', 'true');
   commandTrigger.setAttribute('aria-expanded', 'false');
   document.body.classList.remove('menu-open');
+
   window.setTimeout(() => {
     paletteBackdrop.hidden = true;
   }, 220);
+
   commandTrigger.focus();
 }
 
@@ -54,6 +60,7 @@ function navigateToSection(targetId) {
   });
 
   closePalette();
+
   window.setTimeout(() => {
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, 120);
@@ -61,6 +68,7 @@ function navigateToSection(targetId) {
 
 commandTrigger?.addEventListener('click', () => {
   const isOpen = commandTrigger.getAttribute('aria-expanded') === 'true';
+
   if (isOpen) {
     closePalette();
   } else {
@@ -74,35 +82,38 @@ paletteBackdrop?.addEventListener('click', closePalette);
 paletteLinks.forEach((link) => {
   link.addEventListener('click', () => {
     const targetId = link.dataset.target;
+
     if (targetId === 'portfolio') {
       navigateToSection('portfolio');
       return;
     }
+
     navigateToSection(targetId);
   });
 });
 
 document.addEventListener('keydown', (event) => {
   const commandPressed = event.metaKey || event.ctrlKey;
+
   if (commandPressed && event.key.toLowerCase() === 'k') {
     event.preventDefault();
     openPalette();
   }
 
-  if (event.key === 'Escape') {
-    const isOpen = commandTrigger.getAttribute('aria-expanded') === 'true';
-    if (isOpen) {
-      closePalette();
-    }
+  if (
+    event.key === 'Escape' &&
+    commandTrigger?.getAttribute('aria-expanded') === 'true'
+  ) {
+    closePalette();
   }
 });
 
 paletteSearch?.addEventListener('input', (event) => {
   const searchTerm = event.target.value.toLowerCase().trim();
+
   paletteLinks.forEach((link) => {
     const searchableText = link.textContent.toLowerCase();
-    const matches = searchableText.includes(searchTerm);
-    link.hidden = !matches;
+    link.hidden = !searchableText.includes(searchTerm);
   });
 });
 
@@ -111,12 +122,15 @@ const sectionObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
+
       const activeId = entry.target.id;
+
       paletteLinks.forEach((link) => {
         const targetId = link.dataset.target;
         const isActive =
           targetId === activeId ||
           (activeId === 'portfolio-detail' && targetId === 'portfolio');
+
         link.classList.toggle('active', isActive);
       });
     });
@@ -130,34 +144,37 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener('click', (event) => {
     const targetId = anchor.getAttribute('href').slice(1);
     const target = document.getElementById(targetId);
+
     if (!target) return;
+
     event.preventDefault();
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
 
-// Fullscreen API Helper
-function setupFullscreen(btn, container) {
-  if (!btn || !container) return;
-  btn.addEventListener('click', () => {
+function setupFullscreen(button, container) {
+  if (!button || !container) return;
+
+  button.addEventListener('click', () => {
     if (!document.fullscreenElement && !document.webkitFullscreenElement) {
       if (container.requestFullscreen) {
         container.requestFullscreen();
       } else if (container.webkitRequestFullscreen) {
         container.webkitRequestFullscreen();
       }
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-      }
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
     }
   });
 
   const handleFullscreenChange = () => {
-    const isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement);
-    btn.innerHTML = isFullscreen
+    const isFullscreen = Boolean(
+      document.fullscreenElement || document.webkitFullscreenElement
+    );
+
+    button.innerHTML = isFullscreen
       ? 'Exit Full Screen <span class="btn-icon" aria-hidden="true">⛶</span>'
       : 'Full Screen <span class="btn-icon" aria-hidden="true">⛶</span>';
   };
@@ -169,11 +186,12 @@ function setupFullscreen(btn, container) {
 setupFullscreen(fullscreenBtn, previewContainer);
 setupFullscreen(fullscreenBtnEjemplo, previewContainerEjemplo);
 
-// Open in New Tab
-function setupOpenTab(btn, iframe) {
-  if (!btn || !iframe) return;
-  btn.addEventListener('click', () => {
+function setupOpenTab(button, iframe) {
+  if (!button || !iframe) return;
+
+  button.addEventListener('click', () => {
     const targetUrl = iframe.getAttribute('src');
+
     if (targetUrl) {
       window.open(targetUrl, '_blank', 'noopener,noreferrer');
     }
@@ -183,7 +201,6 @@ function setupOpenTab(btn, iframe) {
 setupOpenTab(openNewTabBtn, livePreviewIframe);
 setupOpenTab(openNewTabBtnEjemplo, livePreviewIframeEjemplo);
 
-// Template Cards Dynamic Loading
 templateCards.forEach((card) => {
   card.addEventListener('click', () => {
     const targetUrl = card.dataset.url;
@@ -192,20 +209,24 @@ templateCards.forEach((card) => {
     if (targetUrl && livePreviewIframe) {
       livePreviewIframe.src = targetUrl;
     }
+
     if (templateTitle && previewSiteTitle) {
       previewSiteTitle.textContent = templateTitle;
     }
 
-    const previewSection = document.getElementById('preview');
-    if (previewSection) {
-      previewSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    document
+      .getElementById('preview')
+      ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
 
-// Survey Form Asynchronous Transmission
-surveyForm?.addEventListener('submit', (e) => {
-  e.preventDefault();
+surveyForm?.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  if (!surveyForm.checkValidity()) {
+    surveyForm.reportValidity();
+    return;
+  }
 
   const nameInput = document.getElementById('name');
   const emailInput = document.getElementById('email');
@@ -213,32 +234,52 @@ surveyForm?.addEventListener('submit', (e) => {
   const payload = {
     name: nameInput.value.trim(),
     email: emailInput.value.trim(),
-    timestamp: new Date().toLocaleString()
+    sourceUrl: window.location.href
   };
 
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Submitting...';
-  if (successMessage) successMessage.hidden = true;
+  const originalButtonText = submitBtn?.textContent || 'Submit Survey';
 
-  // Sends payload to the updated Google Apps Script execution endpoint
-  fetch(SCRIPT_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload)
-  })
-    .then(() => {
-      if (successMessage) successMessage.hidden = false;
-      surveyForm.reset();
-    })
-    .catch((err) => {
-      console.error('Survey submission error:', err);
-      alert('There was an error submitting the survey. Please try again.');
-    })
-    .finally(() => {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Submit Survey';
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+  }
+
+  if (successMessage) {
+    successMessage.hidden = true;
+    successMessage.classList.remove('error-alert');
+  }
+
+  try {
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      body: JSON.stringify(payload)
     });
+
+    surveyForm.reset();
+
+    if (successMessage) {
+      successMessage.classList.remove('error-alert');
+      successMessage.textContent =
+        'Thank you! Your response has been recorded.';
+      successMessage.hidden = false;
+    }
+  } catch (error) {
+    console.error('Survey submission error:', error);
+
+    if (successMessage) {
+      successMessage.classList.add('error-alert');
+      successMessage.textContent =
+        'We could not submit your response. Please try again.';
+      successMessage.hidden = false;
+    }
+  } finally {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalButtonText;
+    }
+  }
 });
