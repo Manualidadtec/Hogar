@@ -19,7 +19,7 @@ const openNewTabBtnEjemplo = document.getElementById('openNewTabBtnEjemplo');
 const templateCards = document.querySelectorAll('.template-card[data-url]');
 
 const SCRIPT_URL =
-  'https://script.google.com/macros/s/AKfycbyYD2qXsshFU2gXiUO1U1qx5gmbkeiuYJM29JCSCvhOc7wT2uHPkaS0vneB3w26zzVX/exec';
+  'https://script.google.com/macros/s/AKfycbxJl1brCBV1WGc7L7PlfU8Cx9mP3dfM4JDMVRfze9U/exec';
 
 const surveyForm = document.getElementById('surveyForm');
 const submitBtn = document.getElementById('submitBtn');
