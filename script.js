@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const templateCards = document.querySelectorAll('.template-card[data-url]');
 
   // Survey Form Elements
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxDRqliYnK6oXW9RVxfhJ1Ju3oG0srbE-NJl75zSFhSNyxPGV0AEVd33UdDTv5cdTA/exec';
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxDRqliYnK6oXW9R_VxfhJ1Ju3oG0srbE-NJl75zSFhSNyxPGV0A_EVd33_UdDTv5cdTA/exec';
   const surveyForm = document.getElementById('surveyForm');
   const submitBtn = document.getElementById('submitBtn');
   const successMessage = document.getElementById('successMessage');
